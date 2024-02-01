@@ -5,15 +5,16 @@ const cors = require('cors');
 const passport = require("passport");
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const dbConnect = require('./config/dbConnect');
+const dbConnect = require('./configs/dbConnect');
 const { notFound, handleError } = require('./middlewares/errorHandler');
-const googleRouter = require('./router/googleRouter');
-const userRouter = require('./router/userRouter');
-const adminRouter = require("./router/adminRouter");
-const courseLessonRouter = require('./router/courseLessonRouter');
-const courseRouter = require('./router/courseRouter');
+const googleRouter = require('./routers/googleRouter');
+const userRouter = require('./routers/userRouter');
+const adminRouter = require("./routers/adminRouter");
+const courseLessonRouter = require('./routers/courseLessonRouter');
+const courseRouter = require('./routers/courseRouter');
 const rateLimiter = require("./middlewares/rateLimit")
-const passportSetup = require('./config/passportConfig')
+const passportSetup = require('./configs/passportConfig');
+const newsLetterRouter = require("./routers/newsLetterRouter")
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -49,6 +50,7 @@ app.use("/api/auth", userRouter);
 app.use("/api/user", adminRouter);
 app.use("/api/my-course/", courseLessonRouter)
 app.use("/api/course", courseRouter);
+app.use("/api/newsLetter", newsLetterRouter)
 
 
 // // Error Middleware

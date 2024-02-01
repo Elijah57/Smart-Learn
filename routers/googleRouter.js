@@ -1,7 +1,7 @@
 const googleRouter = require('express').Router();
 const passport = require('passport');
-const { generateToken } = require('../config/jwt');
-const User = require('../model/userModel');
+const { generateToken } = require('../configs/jwt');
+const User = require('../models/userModel');
 const asyncHandler = require('express-async-handler');
 
 googleRouter.get("/login/success", asyncHandler(async (req, res)=>{
