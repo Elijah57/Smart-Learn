@@ -14,7 +14,8 @@ const courseLessonRouter = require('./routers/courseLessonRouter');
 const courseRouter = require('./routers/courseRouter');
 const rateLimiter = require("./middlewares/rateLimit")
 const passportSetup = require('./configs/passportConfig');
-const newsLetterRouter = require("./routers/newsLetterRouter")
+const newsLetterRouter = require("./routers/newsLetterRouter");
+const studentRouter = require('./routers/studentRouter');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -46,11 +47,13 @@ app.get("/", (req, res)=>{
 });
 
 app.use('/', googleRouter);
-app.use("/api/auth", userRouter);
-app.use("/api/user", adminRouter);
-app.use("/api/my-course/", courseLessonRouter)
+app.use("/api", userRouter);
+app.use("/api", studentRouter);
+app.use("/api/admin", adminRouter);
+
+// app.use("/api/my-course", courseLessonRouter)
 app.use("/api/course", courseRouter);
-app.use("/api/newsLetter", newsLetterRouter)
+// app.use("/api/newsLetter", newsLetterRouter)
 
 
 // // Error Middleware

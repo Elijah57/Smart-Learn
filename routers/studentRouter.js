@@ -1,6 +1,6 @@
 const express = require('express');
-const { postCourse, getAllCourse, deleteCourse, getCourse, registerCourse, updateCourse, myCourses } = require("../controllers/courseController")
-const { isLoggedIn, isAdmin, isInstructor } = require('../middlewares/auth')
+const { getAllCourse, getCourse, registerCourse, updateCourse, myCourses } = require("../controllers/courseController")
+const { isLoggedIn } = require('../middlewares/auth')
 const { getMyProfile } = require('../controllers/userController')
 const studentRouter = express.Router()
 
