@@ -7,7 +7,7 @@ const path = require("path");
 const sendMail = asyncHandler (async (options)=>{
     const  transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
+        port: process.env.SMTP_PORT || 587,
         service: process.env.SMTP_SERVICE,
         secure: false,
         auth : {
@@ -29,11 +29,8 @@ const sendMail = asyncHandler (async (options)=>{
         html: html
     }
 
-    await transporter.sendMail(mailOptions)
-
-
-    console.log("Message Sent: ", info.messageId);
-    console.log("Preview Url: ", nodemailer.getTestMessageUrl(info));
+    await transporter.sendMail(mailOptions);
+    console.log("Message Sent: ", mailOptions.messageId);
 });
 
 module.exports = sendMail;

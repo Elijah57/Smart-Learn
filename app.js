@@ -14,7 +14,7 @@ const courseLessonRouter = require('./routers/courseLessonRouter');
 const courseRouter = require('./routers/courseRouter');
 const rateLimiter = require("./middlewares/rateLimit")
 const passportSetup = require('./configs/passportConfig');
-const newsLetterRouter = require("./routers/newsLetterRouter");
+// const newsLetterRouter = require("./routers/newsLetterRouter");
 const studentRouter = require('./routers/studentRouter');
 
 const app = express();

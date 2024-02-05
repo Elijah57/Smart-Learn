@@ -3,6 +3,10 @@ const asyncHandler = require('express-async-handler')
 const {generateToken} = require('../configs/jwt')
 const validateMongodbId  = require('../configs/validateDB_id')
 const crypto = require('crypto');
+const activationCode = require("../configs/activationToken")
+const ejs = require("ejs");
+const path = require('path')
+const sendMail = require("../controllers/emailController")
 // what is the use of express-async-handler is used to
 
 
@@ -15,11 +19,27 @@ const registerUser = asyncHandler ( async (req, res)=>{
 
     // if user not found
     if(!findUser){
-        const createUser = await User.create(req.body);
+        const createdUser = await User.create(req.body);
+        const userVerificationCode = activationCode();
+
+        const data= {user: createdUser.firstname, userVerificationCode}
+        const html = await ejs.renderFile(path.join(__dirname, "../mails/activation-mail.ejs"), data)
+
+    
+        try{
+            await sendMail({
+                email: createdUser.email,
+                subject: "Activate Your Account",
+                template: "activation-mail.ejs",
+                data
+            });
+        }catch(error){
+            throw new Error("Something went wrong!")
+        }
         res.status(200).json({
             status:true,
             message: "User Created Successfully",
-            createUser
+            createdUser
         })
     }else{
         throw new Error("User with Email already Exists")
@@ -110,18 +130,24 @@ const forgotPasswordToken = asyncHandler(async (req, res)=>{
     try{
         const resettoken = await user.createPasswordResetToken();
         await user.save();
-        const resetlink = `http://localhost:4000/api/auth/reset-password/${resettoken}`;
+        const resetlink = `http://localhost:4000/api/reset-password/${resettoken}`;
 
         // data to be sent
-        const data = {
-            to: email,
-            text: `Hey ${user.firstname} ${user.lastname}`,
-            subject: "Forgot Password",
-            html: resetlink
-        }
-        //send email
+        const data= {user: user.firstname, resetlink}
+        const html = await ejs.renderFile(path.join(__dirname, "../mails/reset-password.ejs"), data)
+        
+        try{
+            //send email
+            sendMail({
+                email: email,
+                subject: "Password Reset Link",
+                template: "reset-password.ejs",
+                data
+            });
 
-        sendMail(data);
+        }catch(error){
+            throw new Error("Something went wrong")
+        }
 
         res.status(200).json(resetlink)
     }catch (error){
