@@ -1,6 +1,6 @@
 const express = require("express");
-const { isLoggedIn, isAdmin } = require("../middlewares/auth");
-const { getAllUsers, getUser, blockUser, unBlockUser, deleteUser} = require("../controllers/adminController")
+const { isLoggedIn, isAdmin } = require("../middlewares/auth/index");
+const { getAllUsers, getUser, blockUser, unBlockUser, deleteUser} = require("../controllers/admin/index")
 
 const adminRouter = express.Router();
 

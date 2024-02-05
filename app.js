@@ -6,15 +6,14 @@ const passport = require("passport");
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const dbConnect = require('./configs/dbConnect');
-const { notFound, handleError } = require('./middlewares/errorHandler');
+const { notFound, handleError } = require('./middlewares/error/errorHandler');
 const googleRouter = require('./routers/googleRouter');
 const userRouter = require('./routers/userRouter');
 const adminRouter = require("./routers/adminRouter");
 const courseLessonRouter = require('./routers/courseLessonRouter');
 const courseRouter = require('./routers/courseRouter');
 const rateLimiter = require("./middlewares/rateLimit")
-const passportSetup = require('./configs/passportConfig');
-// const newsLetterRouter = require("./routers/newsLetterRouter");
+const passportSetup = require('./utils/passport/passportConfig');
 const studentRouter = require('./routers/studentRouter');
 
 const app = express();
@@ -51,9 +50,8 @@ app.use("/api", userRouter);
 app.use("/api", studentRouter);
 app.use("/api/admin", adminRouter);
 
-// app.use("/api/my-course", courseLessonRouter)
+
 app.use("/api/course", courseRouter);
-// app.use("/api/newsLetter", newsLetterRouter)
 
 
 // // Error Middleware

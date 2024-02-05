@@ -71,13 +71,15 @@
         </div>
         <div class="email-body">
             <p> Hello <%= user %>, </p>
-            <p>Thank you for registering with Smart Learn. To activate your account, please use the followiing activation code:</p>
-            <h2> <%= userVerificationCode %></h2>
-            <p>Please enter this code on the activation page within the next 5 minutes.</p>
+            <p>Thank you for registering with Smart Learn. To activate your account, please click the link below to validate your email as part of Smart Learn Verification process:</p>
+          
+            <button class="button">   <a href= <%= userActivationLink %> > Click Here</a> </button>
+            <p>Please  the activation page within the next 10 minutes.</p>
+            <p>Alternatively, copy and paste <%= userActivationLink %> into your browser to verify your email</p>
             <p>If you did not register for a Smart Learn account, please ignore this email</p>
         </div>
         <div class="email-footer">
-            <p>If you have any questions, please don't hesitate to contact us <a href="">support team Smart Learnn</a></p>
+            <p>If you have any questions, please don't hesitate to contact us <a href="mailto:smartlearn.stack@gmail.com">support team Smart Learnn</a></p>
         </div>
     </div>
 </body>

@@ -49,6 +49,12 @@ var userSchema  = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    activationToken: String,
+    activationTokenExpires: Date,
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
@@ -61,6 +67,7 @@ var userSchema  = new mongoose.Schema({
 }
 );
 
+
 // Encrypt the password with bcrypt -callback to be implemented before each user save
 userSchema.pre("save", async function(next){
     if(!this.isModified("password")){ // check if a password field is modified
@@ -71,6 +78,14 @@ userSchema.pre("save", async function(next){
     next();
 })
 
+// create Email verification token to verity user account
+userSchema.methods.createActivationToken = async function(){
+    const activationCode = crypto.randomBytes(16).toString("hex");
+    this.activationToken = crypto.createHash("sha256").update(activationCode).digest("hex");
+    this.activationTokenExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+    return this.activationToken
+}
+
 // login functionality -callback to compare password creating a method, that checks)
 userSchema.methods.isPasswordMatched = async function(enteredpassword){
     return await bcrypt.compare(enteredpassword, this.password);
@@ -80,7 +95,7 @@ userSchema.methods.isPasswordMatched = async function(enteredpassword){
 userSchema.methods.createPasswordResetToken = async function(){
     const resetToken = crypto.randomBytes(32).toString("hex");
     this.passwordResetToken = crypto.createHash("sha256").update(resetToken).digest("hex");
-    this.passwordResetExpires = Date.now() + 30 * 60 * 1000; // 10 minutes
+    this.passwordResetExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
     return resetToken;
 }
 
