@@ -80,10 +80,10 @@ userSchema.pre("save", async function(next){
 
 // create Email verification token to verity user account
 userSchema.methods.createActivationToken = async function(){
-    const activationCode = crypto.randomBytes(16).toString("hex");
+    const activationCode = crypto.randomBytes(32).toString("hex");
     this.activationToken = crypto.createHash("sha256").update(activationCode).digest("hex");
     this.activationTokenExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
-    return this.activationToken
+    return activationCode;
 }
 
 // login functionality -callback to compare password creating a method, that checks)

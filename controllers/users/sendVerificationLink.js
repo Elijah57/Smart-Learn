@@ -5,14 +5,17 @@ const path = require('path')
 const sendMail = require("../../utils/mails/mailer")
 
 
-const registerUser = asyncHandler ( async (req, res)=>{
-    // Before user is registered check if email, has been created with another user before
-    const email = req.body.email;
-    const findUser = await User.findOne({email: email});
+const verificationLink = asyncHandler(async (req, res)=>{
+    const {email} = req.user;
+    const createdUser = await User.findOne({email:email});
 
-    // if user not found
-    if(!findUser){
-        const createdUser = await User.create(req.body);
+    if(createdUser.isVerified === true){
+        return res.status(400).json({
+            status: false,
+            message: "User Email Already Verified"
+        })
+    }
+    try{
         const userVerificationCode = await createdUser.createActivationToken();
         const userActivationLink = `http://localhost:4000/api/verify-email/${userVerificationCode}`
 
@@ -29,17 +32,14 @@ const registerUser = asyncHandler ( async (req, res)=>{
         }catch(error){
             throw new Error("Something went wrong!")
         }
+
         res.status(200).json({
-            status:true,
-            message: "User Created Successfully",
-            createdUser
+            status: true,
+            message: "Check your email for password reset link"
         })
-    }else{
-        return res.status(400).json({
-            status: false,
-            message: "User with Email already Exists"
-        })
+    }catch (error){
+        throw new Error(error)
     }
 });
 
-module.exports = registerUser;
+module.exports = verificationLink;

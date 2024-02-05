@@ -17,7 +17,7 @@ const forgotPasswordToken = asyncHandler(async (req, res)=>{
 
         // data to be sent
         const data= {user: user.firstname, resetlink}
-        const html = await ejs.renderFile(path.join(__dirname, "../mails/reset-password.ejs"), data)
+        const html = await ejs.renderFile(path.join(__dirname, "../../mails/reset-password.ejs"), data)
         
         try{
             //send email
