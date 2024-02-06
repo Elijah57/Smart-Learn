@@ -26,6 +26,7 @@ const verifyUser = asyncHandler(async (req, res)=>{
             userToBeVerified.activationToken = null;
             userToBeVerified.activationTokenExpires = null;
             userToBeVerified.isVerified = true;
+            
             await userToBeVerified.save()
             return res.status(200).json({
                 status: true,

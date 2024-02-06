@@ -17,6 +17,7 @@ const verificationLink = asyncHandler(async (req, res)=>{
     }
     try{
         const userVerificationCode = await createdUser.createActivationToken();
+        await createdUser.save()
         const userActivationLink = `http://localhost:4000/api/verify-email/${userVerificationCode}`
 
         const data= {user: createdUser.firstname, userActivationLink}

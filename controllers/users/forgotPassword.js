@@ -9,7 +9,12 @@ const forgotPasswordToken = asyncHandler(async (req, res)=>{
     const {email} = req.body;
     const user = await User.findOne({email:email});
 
-    if(!user) throw new Error("Email not registered")
+    if(!user){
+        return res.status(404).json({
+            status: false,
+            message: "Email not registered !"
+        });
+    }
     try{
         const resettoken = await user.createPasswordResetToken();
         await user.save();
