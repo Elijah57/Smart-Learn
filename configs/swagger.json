@@ -1,0 +1,547 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "API Documentation",
+      "version": "1.0.0",
+      "description": "Documentation for authentication, lessons, courses, and user profile endpoints"
+    },
+    "tags": [
+      {
+        "name": "Authentication",
+        "description": "Endpoints for user authentication"
+      },
+      {
+        "name": "Lessons",
+        "description": "Endpoints for managing lessons"
+      },
+      {
+        "name": "Courses",
+        "description": "Endpoints for managing courses"
+      },
+      {
+        "name": "User Profile",
+        "description": "Endpoints for user profile management"
+      }
+    ],
+    "paths": {
+      "/api/auth/register/": {
+        "post": {
+          "tags": ["Authentication"],
+          "description": "Allows users to register for an account",
+          "parameters": [
+            {
+                "name": "first name",
+                "in": "formData",
+                "required": true,
+                "type": "string",
+                "description": "The first name of the user"
+              },
+              {
+                "name": "last name",
+                "in": "formData",
+                "required": true,
+                "type": "string",
+                "description": "The last name of the user"
+              },
+              {
+                  "name": "email",
+                  "in": "formData",
+                  "required": true,
+                  "type": "string",
+                  "description": "The email of the user"
+                },
+                {
+                  "name": "password",
+                  "in": "formData",
+                  "required": true,
+                  "type": "string",
+                  "description": "The password of the user"
+                }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful registration"
+            }
+          }
+        }
+      },
+      "/api/auth/login/": {
+        "post": {
+          "tags": ["Authentication"],
+          "description": "Allows users to log in to their account",
+          "parameters": [
+            {
+              "name": "email",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The email of the user"
+            },
+            {
+              "name": "password",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The password of the user"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful login"
+            }
+          }
+        }
+      },
+      "/auth/google/": {
+        "get": {
+          "tags": ["Authentication"],
+          "description": "Allows users to login with Google",
+          "responses": {
+            "200": {
+              "description": "Successful Google login"
+            }
+          }
+        }
+      },
+      "/api/auth/logout/": {
+        "post": {
+          "tags": ["Authentication"],
+          "description": "Allows users to log out of their account",
+          "responses": {
+            "200": {
+              "description": "Successful logout"
+            }
+          }
+        }
+      },
+      "/api/auth/forgot-password/": {
+        "post": {
+          "tags": ["Authentication"],
+          "description": "Accepts user email and generates a password reset link, then sends it to the user",
+          "parameters": [
+            {
+              "name": "email",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The email of the user"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Password reset link sent successfully"
+            }
+          }
+        }
+      },
+      "/api/auth/reset-password/{token}/": {
+        "get": {
+          "tags": ["Authentication"],
+          "description": "Allows users to reset their password by clicking the received password reset link",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "Password reset token"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Password reset successful"
+            }
+          }
+        }
+      },
+      "/api/auth/request-verification/": {
+        "get": {
+          "tags": ["Authentication"],
+          "description": "Allows users to apply for email verification; sends email verification link to users",
+          "parameters": [
+            {
+              "name": "email",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The email of the user"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Email verification link sent successfully"
+            }
+          }
+        }
+      },
+      "/api/auth/verify-email/{token}": {
+        "get": {
+          "tags": ["Authentication"],
+          "description": "Allows users to verify email by clicking the email verification link",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "Email verification token"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Email verification successful"
+            }
+          }
+        }
+      },
+      "/api/auth/update-password/": {
+        "put": {
+          "tags": ["Authentication"],
+          "description": "Allows users to update their password",
+          "parameters": [
+            {
+              "name": "old_password",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The old password of the user"
+            },
+            {
+              "name": "new_password",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The new password of the user"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Password update successful"
+            }
+          }
+        }
+      },
+      "/api/lessons": {
+        "get": {
+          "tags": ["Lessons"],
+          "description": "Retrieves all lessons",
+          "responses": {
+            "200": {
+              "description": "Successful retrieval of lessons"
+            }
+          }
+        }
+      },
+      "/api/lessons/{id}": {
+        "get": {
+          "tags": ["Lessons"],
+          "description": "Retrieves a lesson by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "Lesson ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful retrieval of the lesson"
+            },
+            "404": {
+              "description": "Lesson not found"
+            }
+          }
+        }
+      },
+      "/api/lessons": {
+        "post": {
+          "tags": ["Lessons"],
+          "description": "Creates a new lesson",
+          "parameters": [
+            {
+              "name": "title",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The title of the lesson"
+            },
+            {
+              "name": "content",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The content of the lesson"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Lesson created successfully"
+            }
+          }
+        }
+      },
+      "/api/lessons/{id}": {
+        "put": {
+          "tags": ["Lessons"],
+          "description": "Updates a lesson by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "Lesson ID"
+            },
+            {
+              "name": "title",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The new title of the lesson"
+            },
+            {
+              "name": "content",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The new content of the lesson"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Lesson updated successfully"
+            },
+            "404": {
+              "description": "Lesson not found"
+            }
+          }
+        }
+      },
+      "/api/lessons/{id}": {
+        "delete": {
+          "tags": ["Lessons"],
+          "description": "Deletes a lesson by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "Lesson ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Lesson deleted successfully"
+            },
+            "404": {
+              "description": "Lesson not found"
+            }
+          }
+        }
+      },
+      "/api/courses": {
+        "get": {
+          "tags": ["Courses"],
+          "description": "Retrieves all courses",
+          "responses": {
+            "200": {
+              "description": "Successful retrieval of courses"
+            }
+          }
+        }
+      },
+      "/api/courses/{id}": {
+        "get": {
+          "tags": ["Courses"],
+          "description": "Retrieves a course by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "Course ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful retrieval of the course"
+            },
+            "404": {
+              "description": "Course not found"
+            }
+          }
+        }
+      },
+      "/api/courses": {
+        "post": {
+          "tags": ["Courses"],
+          "description": "Creates a new course",
+          "parameters": [
+            {
+              "name": "title",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The title of the course"
+            },
+            {
+              "name": "description",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The description of the course"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Course created successfully"
+            }
+          }
+        }
+      },
+      "/api/courses/{id}": {
+        "put": {
+          "tags": ["Courses"],
+          "description": "Updates a course by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "Course ID"
+            },
+            {
+              "name": "title",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The new title of the course"
+            },
+            {
+              "name": "description",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The new description of the course"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Course updated successfully"
+            },
+            "404": {
+              "description": "Course not found"
+            }
+          }
+        }
+      },
+      "/api/courses/{id}": {
+        "delete": {
+          "tags": ["Courses"],
+          "description": "Deletes a course by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "Course ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Course deleted successfully"
+            },
+            "404": {
+              "description": "Course not found"
+            }
+          }
+        }
+      },
+      "/api/users/update-profile/": {
+        "put": {
+          "tags": ["User Profile"],
+          "description": "Allows users to update their profile",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The ID of the user"
+            },
+            {
+              "name": "new_data",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "avatar_url": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Profile update successful"
+            }
+          }
+        }
+      },
+      "/api/users/profile/": {
+        "get": {
+          "tags": ["User Profile"],
+          "description": "Allows users to retrieve their profile information",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": "The ID of the user"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Profile information retrieved successfully"
+            }
+          }
+        }
+      },
+      "/api/users/my-courses/": {
+        "get": {
+          "tags": ["User Profile"],
+          "description": "Allows users to retrieve all enrolled courses",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": "The ID of the user"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Enrolled courses retrieved successfully"
+            }
+          }
+        }
+      }
+    }
+  }
+  
