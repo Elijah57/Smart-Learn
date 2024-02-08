@@ -42,16 +42,16 @@ app.use(passport.session());
 // passportSetup(passport);
 
 app.get("/", (req, res)=>{
-    res.send(`<a href="http://localhost:4000/auth/google">Login with google</a>`);
+    res.send(`<a href="https://smart-learn-b3p2.onrender.com/auth/google">Login with google</a>`);
 });
 
 app.use('/', googleRouter);
-app.use("/api", userRouter);
-app.use("/api", studentRouter);
+app.use("/api/auth", userRouter);
+app.use("/api/users", studentRouter);
 app.use("/api/admin", adminRouter);
 
 
-app.use("/api/course", courseRouter);
+app.use("/api/courses", courseRouter);
 
 
 // // Error Middleware
@@ -59,5 +59,5 @@ app.use(notFound);
 app.use(handleError);
 
 app.listen(PORT, ()=>{
-    console.log(`Server is running at http://localhost:${PORT}`)
+    console.log(`Server is running at ${PORT}`)
 });
