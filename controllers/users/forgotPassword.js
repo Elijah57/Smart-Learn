@@ -3,7 +3,9 @@ const asyncHandler = require('express-async-handler')
 const ejs = require("ejs");
 const path = require('path')
 const sendMail = require("../../utils/mails/mailer")
+require("dotenv").config()
 
+const HOST = process.env.HOST
 
 const forgotPasswordToken = asyncHandler(async (req, res)=>{
     const {email} = req.body;
@@ -18,7 +20,7 @@ const forgotPasswordToken = asyncHandler(async (req, res)=>{
     try{
         const resettoken = await user.createPasswordResetToken();
         await user.save();
-        const resetlink = `http://localhost:4000/api/reset-password/${resettoken}`;
+        const resetlink = `${HOST}/api/reset-password/${resettoken}`;
 
         // data to be sent
         const data= {user: user.firstname, resetlink}

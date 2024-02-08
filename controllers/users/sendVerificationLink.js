@@ -3,7 +3,9 @@ const asyncHandler = require('express-async-handler')
 const ejs = require("ejs");
 const path = require('path')
 const sendMail = require("../../utils/mails/mailer")
+require("dotenv").config()
 
+const HOST = process.env.HOST
 
 const verificationLink = asyncHandler(async (req, res)=>{
     const {email} = req.user;
@@ -18,7 +20,7 @@ const verificationLink = asyncHandler(async (req, res)=>{
     try{
         const userVerificationCode = await createdUser.createActivationToken();
         await createdUser.save()
-        const userActivationLink = `http://localhost:4000/api/verify-email/${userVerificationCode}`
+        const userActivationLink = `${HOST}/api/verify-email/${userVerificationCode}`
 
         const data= {user: createdUser.firstname, userActivationLink}
         const html = await ejs.renderFile(path.join(__dirname, "../../mails/activation-mail.ejs"), data)
