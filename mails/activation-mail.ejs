@@ -16,7 +16,7 @@
             color: #222222;
         }
         a {
-            color: blueviolet;
+            color: blue;
             text-decoration: none;
         }
         h1 {
@@ -67,19 +67,20 @@
 <body>
     <div class="email-wrapper">
         <div class="email-header">
-            <h1>Welcome to Smart Learn</h1>
+            <h1>Welcome to SmartLearn</h1>
         </div>
         <div class="email-body">
             <p> Hello <%= user %>, </p>
-            <p>Thank you for registering with Smart Learn. To activate your account, please click the link below to validate your email as part of Smart Learn Verification process:</p>
+            <p>Thank you for registering with SmartLearn. To activate your account, please click the link below to validate your email as part of SmartLearn Verification process:</p>
           
-            <button class="button">   <a href= <%= userActivationLink %> > Click Here</a> </button>
-            <p>Please  the activation page within the next 10 minutes.</p>
+            <button class="button">   <a href= <%= userActivationLink %> > Activate Your account</a> </button>
+            <br><br>
+            <p>This link will expire in the next 10 minutes.</p>
             <p>Alternatively, copy and paste <%= userActivationLink %> into your browser to verify your email</p>
-            <p>If you did not register for a Smart Learn account, please ignore this email</p>
+            <p>If you did not register for a SmartLearn account, please ignore this email</p>
         </div>
         <div class="email-footer">
-            <p>If you have any questions, please don't hesitate to contact us <a href="mailto:smartlearn.stack@gmail.com">support team Smart Learnn</a></p>
+            <p>If you have any questions, please don't hesitate to contact us at <a href="mailto:smartlearn.stack@gmail.com">Support Team SmartLearn</a></p>
         </div>
     </div>
 </body>
