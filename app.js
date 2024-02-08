@@ -1,5 +1,7 @@
 const express = require('express');
 const dotenv = require("dotenv").config();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./configs/swagger.json');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require("passport");
@@ -18,6 +20,7 @@ const studentRouter = require('./routers/studentRouter');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const HOST = process.env.HOST;
 
 dbConnect();
 
@@ -41,8 +44,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 // passportSetup(passport);
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.get("/", (req, res)=>{
-    res.send(`<a href="https://smart-learn-b3p2.onrender.com/auth/google">Login with google</a>`);
+    res.send(`<a href="${HOST}/api-docs">Click Here to view API DOcumentation</a>`);
 });
 
 app.use('/', googleRouter);
