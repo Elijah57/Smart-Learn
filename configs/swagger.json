@@ -30,14 +30,14 @@
           "description": "Allows users to register for an account",
           "parameters": [
             {
-                "name": "first name",
+                "name": "firstname",
                 "in": "formData",
                 "required": true,
                 "type": "string",
                 "description": "The first name of the user"
               },
               {
-                "name": "last name",
+                "name": "lastname",
                 "in": "formData",
                 "required": true,
                 "type": "string",
@@ -261,7 +261,7 @@
           "description": "Creates a new lesson",
           "parameters": [
             {
-              "name": "title",
+              "name": "topic",
               "in": "formData",
               "required": true,
               "type": "string",
@@ -273,6 +273,40 @@
               "required": true,
               "type": "string",
               "description": "The content of the lesson"
+            },
+            {
+              "name": "videoUrl",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The video URL of the lesson"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Lesson created successfully"
+            }
+          }
+        }
+      },
+      "/api/lessons/upload-video/{id}/": {
+        "post": {
+          "tags": ["Lessons"],
+          "description": "Upload the video Url link for a lesson",
+          "parameters": [
+            {
+              "name": "lesson_id",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": "The title of the lesson"
+            },
+            {
+              "name": "videoUrl",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The video URL of the lesson"
             }
           ],
           "responses": {

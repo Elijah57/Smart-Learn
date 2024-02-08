@@ -9,7 +9,7 @@ const HOST = process.env.HOST
 
 const registerUser = asyncHandler ( async (req, res)=>{
     // Before user is registered check if email, has been created with another user before
-    const email = req.body.email;
+        const { email } = req.body;
     const findUser = await User.findOne({email: email});
 
     // if user not found
