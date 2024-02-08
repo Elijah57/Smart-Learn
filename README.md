@@ -1,1 +1,3 @@
-#LMS
+# Smart Learn (Work In Progress)
+
+Smart Learn is a Learning Management System API that is  built with Express.JS and provides a powerful set of features for users  (students, instructors and admins). With this API, users can enroll in courses, and  complete modules, lessons and quizzes. Instructors can create and manage courses, modules, lessons, and quizzes, as well as view information  about enrolled users.
