@@ -221,7 +221,7 @@
           }
         }
       },
-      "/api/lessons": {
+      "/api/lessons/all/": {
         "get": {
           "tags": ["Lessons"],
           "description": "Retrieves all lessons",
@@ -232,7 +232,7 @@
           }
         }
       },
-      "/api/lessons/{id}": {
+      "/api/lessons/{id}/": {
         "get": {
           "tags": ["Lessons"],
           "description": "Retrieves a lesson by ID",
@@ -282,7 +282,7 @@
           }
         }
       },
-      "/api/lessons/{id}": {
+      "/api/lessons/update/{id}": {
         "put": {
           "tags": ["Lessons"],
           "description": "Updates a lesson by ID",
@@ -319,7 +319,7 @@
           }
         }
       },
-      "/api/lessons/{id}": {
+      "/api/lessons/delete/{id}/": {
         "delete": {
           "tags": ["Lessons"],
           "description": "Deletes a lesson by ID",
@@ -342,7 +342,7 @@
           }
         }
       },
-      "/api/courses": {
+      "/api/courses/all/": {
         "get": {
           "tags": ["Courses"],
           "description": "Retrieves all courses",
@@ -353,7 +353,7 @@
           }
         }
       },
-      "/api/courses/{id}": {
+      "/api/courses/{id}/": {
         "get": {
           "tags": ["Courses"],
           "description": "Retrieves a course by ID",
@@ -403,7 +403,7 @@
           }
         }
       },
-      "/api/courses/{id}": {
+      "/api/courses/update/{id}/": {
         "put": {
           "tags": ["Courses"],
           "description": "Updates a course by ID",
@@ -440,7 +440,7 @@
           }
         }
       },
-      "/api/courses/{id}": {
+      "/api/courses/delete/{id}": {
         "delete": {
           "tags": ["Courses"],
           "description": "Deletes a course by ID",
@@ -527,6 +527,13 @@
           "tags": ["User Profile"],
           "description": "Allows users to retrieve all enrolled courses",
           "parameters": [
+            {
+              "name": "Auth-Token",
+              "in": "query",
+              "required": true,
+              "type": "string",
+              "description": "The Authorization Token assigned to user on Login"
+            },
             {
               "name": "user_id",
               "in": "query",
