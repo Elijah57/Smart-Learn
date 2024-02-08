@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-      "title": "API Documentation",
+      "title": "SmartLearn API Documentation",
       "version": "1.0.0",
       "description": "Documentation for authentication, lessons, courses, and user profile endpoints"
     },
