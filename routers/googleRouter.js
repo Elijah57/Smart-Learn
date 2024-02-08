@@ -40,7 +40,7 @@ googleRouter.get("/auth/google/callback",
     })
 );
 
-googleRouter.get("/auth/logout", asyncHandler(async (req, res, next)=>{
+googleRouter.get("/logout", asyncHandler(async (req, res, next)=>{
     req.logout((err)=>{
         console.log("Logged out");
         if (err) return next(err);
