@@ -44,7 +44,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 // passportSetup(passport);
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {customSiteTitle: "SmartLearn API Docs"}));
 app.get("/", (req, res)=>{
     res.send(`<a href="${HOST}/api-docs">Click Here to view API DOcumentation</a>`);
 });
