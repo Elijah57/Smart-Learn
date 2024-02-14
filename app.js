@@ -7,6 +7,7 @@ const cors = require('cors');
 const passport = require("passport");
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const mongoSanitize = require('express-mongo-sanitize');
 const dbConnect = require('./configs/dbConnect');
 const { notFound, handleError } = require('./middlewares/error/errorHandler');
 const googleRouter = require('./routers/googleRouter');
@@ -28,6 +29,7 @@ dbConnect();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(mongoSanitize());
 app.use(cors());
 app.use(rateLimiter)
 
