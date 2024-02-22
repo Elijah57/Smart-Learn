@@ -15,7 +15,7 @@ studentRouter.put("/update-profile", isLoggedIn, updateUser);
 // studentRouter.get("/:id/detail", isLoggedIn, getCourse)
 studentRouter.get("/my-courses", isLoggedIn, myCourses);
 studentRouter.get("/profile", isLoggedIn, getMyProfile);
-
+studentRouter.get("/profile/:id", getMyProfile);
 
 
 
