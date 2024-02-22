@@ -7,6 +7,7 @@ const forgotPasswordToken = require("./forgotPassword");
 const resetPassword = require("./resetPassword");
 const getMyProfile = require("./profile")
 const verificationLink = require("./sendVerificationLink")
+const getMyProfileId = require("./profileId");
 
 module.exports = {
     registerUser, 
@@ -17,5 +18,6 @@ module.exports = {
     forgotPasswordToken,
     resetPassword,
     getMyProfile,
-    verificationLink
+    verificationLink,
+    getMyProfileId
 }
