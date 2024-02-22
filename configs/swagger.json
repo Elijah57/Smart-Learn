@@ -536,7 +536,7 @@
           }
         }
       },
-      "/api/users/profile/": {
+      "/api/users/profile/{id}": {
         "get": {
           "tags": ["User Profile"],
           "description": "Allows users to retrieve their profile information",
