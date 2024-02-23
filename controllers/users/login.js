@@ -15,6 +15,7 @@ const loginUser = asyncHandler(async (req, res)=>{
             status:true,
             message: "Logged in Successfully",
             token: generateToken(findUser?._id),
+            user_id: findUser?._id,
             role: findUser?.roles,
             username: findUser?.firstname +" "+ findUser?.lastname,
             user_image: findUser?.user_image,     
