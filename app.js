@@ -20,6 +20,7 @@ const passportSetup = require('./utils/passport/passportConfig');
 const studentRouter = require('./routers/studentRouter');
 
 const app = express();
+app.disable("x-powered-by");
 app.set('trust proxy', false);
 const PORT = process.env.PORT || 5000;
 const HOST = process.env.HOST;
