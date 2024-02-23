@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(mongoSanitize());
 app.use(cors());
-app.use(rateLimiter)
+// app.use(rateLimiter)
 
 app.use(session({
     resave: false,
