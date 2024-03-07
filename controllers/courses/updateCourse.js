@@ -1,6 +1,5 @@
 const asyncHandler = require("express-async-handler");
 const Course = require("../../models/courses/courseModel");
-const slugify = require("slugify");
 
 
 

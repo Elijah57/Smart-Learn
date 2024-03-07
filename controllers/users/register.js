@@ -29,7 +29,7 @@ const registerUser = asyncHandler ( async (req, res)=>{
                 data
             });
         }catch(error){
-            throw new Error("Something went wrong!")
+            return res.status(422).json({message: "Something went wrong!"})
         }
         res.status(200).json({
             status:true,

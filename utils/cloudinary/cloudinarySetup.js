@@ -1,15 +1,31 @@
 const cloudinary = require("cloudinary").v2;
 
-export async function uploadToCloudinary(file){
+module.exports.uploadProfileImageToCloudinary = async function (file){
     return new Promise((resolve, reject)=>{
-        cloudinary.uploader.upload(file, { resource_type: "video"}, (err, url)=>{
+        cloudinary.uploader.upload(file, 
+            { resource_type: "video",
+            folder: "profile_images",
+            width: 150
+},      (err, url)=>{
             if(err) return reject(err);
             return resolve(url)
         })
     })
 }
 
-export async function deleteFileFromCloudinary(public_id){
+module.exports.uploadLessonsToCloudinary = async function (file){
+    return new Promise((resolve, reject)=>{
+        cloudinary.uploader.upload(file, 
+            { resource_type: "video",
+            folder: "Lesson_videos"
+        }, (err, url)=>{
+            if(err) return reject(err);
+            return resolve(url)
+        })
+    })
+}
+
+module.exports.deleteFileFromCloudinary = async function (public_id){
     return new Promise((resolve, reject)=>{
         cloudinary.uploader.destroy(public_id, (err, done)=>{
             if(err) return reject(err);
