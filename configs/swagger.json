@@ -56,6 +56,13 @@
                   "required": true,
                   "type": "string",
                   "description": "The password of the user"
+                },
+                {
+                  "name": "confirmPassword",
+                  "in": "formData",
+                  "required": true,
+                  "type": "string",
+                  "description": "Confirm  password of the user"
                 }
           ],
           "responses": {
