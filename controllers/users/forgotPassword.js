@@ -5,7 +5,7 @@ const path = require('path')
 const sendMail = require("../../utils/mails/mailer")
 require("dotenv").config()
 
-const HOST = process.env.HOST
+const HOST = process.env.HOST;
 
 const forgotPasswordToken = asyncHandler(async (req, res)=>{
     const {email} = req.body;
