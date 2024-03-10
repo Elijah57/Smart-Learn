@@ -4,6 +4,7 @@ const ejs = require("ejs");
 const path = require('path')
 const sendMail = require("../../utils/mails/mailer")
 const validateEmail = require("../../utils/helpers/validateEmail")
+const validatePassword = require("../../utils/helpers/validatePassword")
 require("dotenv").config()
 
 const HOST = process.env.HOST;
@@ -16,10 +17,11 @@ const registerUser = asyncHandler ( async (req, res)=>{
     const isMailValid = validateEmail(email)
     if (isMailValid === null) return res.status(400).json({status: false, message: "Invalid email address"})
     
-    if ((typeof(password) !== "string") || (password === null) )return res.status(400).json({message: "Password invalid"});
-    if(password !== confirmPassword) return res.status(400).json({status: false, message: "Password does not match"})
 
-    const userInput = {firstname, lastname, email, password};
+    const validatedPassword = validatePassword(password, res);
+    if(validatedPassword !== confirmPassword) return res.status(400).json({status: false, message: "Password does not match"})
+
+    const userInput = {firstname, lastname, email, validatedPassword};
 
     // check if email already exists
     const findUser = await User.findOne({email: email});
