@@ -20,6 +20,9 @@ var userSchema  = new mongoose.Schema({
         default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPKf7bdPa_aOiwGzeNO4YY4YwvAya-Hy8vOUtOFkfi1SD3HDDhjCz7Ux6OqLKNiD3SIxM&usqp=CAU"
 
     },
+    image_pubId: {
+        type: String,
+    },
     email : {
         type: String,
         required: true,
