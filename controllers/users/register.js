@@ -10,16 +10,16 @@ require("dotenv").config()
 const HOST = process.env.HOST;
 
 const registerUser = asyncHandler ( async (req, res)=>{
-    // Before user is registered check if email, has been created with another user before
+    // extract data from req.body
     const { firstname, lastname, email, password, confirmPassword } = req.body;
 
     // perform input data checks
     const isMailValid = validateEmail(email)
-    if (isMailValid === null) return res.status(400).json({status: false, message: "Invalid email address"})
+    if (isMailValid === null) {return res.status(400).json({status: false, message: "Invalid email address"})}
     
 
     const validatedPassword = validatePassword(password, res);
-    if(validatedPassword !== confirmPassword) return res.status(400).json({status: false, message: "Password does not match"})
+    if(validatedPassword !== confirmPassword){ return res.status(400).json({status: false, message: "Password does not match"}) }
 
     const userInput = {firstname, lastname, email, validatedPassword};
 

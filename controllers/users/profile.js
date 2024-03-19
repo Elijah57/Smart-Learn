@@ -9,7 +9,11 @@ const getMyProfile = asyncHandler(async (req, res)=>{
         res.status(200).json({
             status: true,
             message: "User Profile",
-            user: user
+            user: {
+                firstname: user?.firstname,
+                lastname: user?.lastname,
+                role: user?.roles
+            }
         })
     }catch(error){
         throw new Error(error)
