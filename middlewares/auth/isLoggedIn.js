@@ -5,20 +5,17 @@ require('dotenv').config();
 
 const isLoggedIn = asyncHandler(async (req, res, next)=>{
     const token = req?.header("authorization")?.split(" ")[1];
-    // console.log(token);
-    // console.log(req.header("authorization"))
-    if (token){
-        try{
-            const decode = jwt.verify(token, process.env.JWT_SECRET);
-            const user = await User.findById(decode?.id)
-            req.user = user;
-            next();   
-        }catch (error){
-            throw new Error(error)
-        }
-    }else{
-        throw new Error("Ther is no token attached to the header")
+
+    if (!token) return res.status(401).json({msg: "Access Denied"});
+
+    try{
+        const decode = jwt.verify(token, process.env.JWT_SECRET);
+        req.user._id = decode?.id
+        next();   
+    }catch (error){
+        res.status(401).json({error: "Invalid token"})
     }
+    
 });
 
 
