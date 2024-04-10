@@ -17,34 +17,32 @@ const forgotPasswordToken = asyncHandler(async (req, res)=>{
             message: "Email not registered !"
         });
     }
+    
+    const resettoken = await user.createPasswordResetToken();
+    await user.save();
+    const resetlink = `${HOST}/api/auth/reset-password/${resettoken}`;
+
+    // data to be sent
+    const emailData= {user: user.firstname, resetlink};
+    
     try{
-        const resettoken = await user.createPasswordResetToken();
-        await user.save();
-        const resetlink = `${HOST}/api/reset-password/${resettoken}`;
+        //send email
+        await sendMail({
+            email: email,
+            subject: "Password Reset Link",
+            template: "reset-password.ejs",
+            emailData
+        });
 
-        // data to be sent
-        const data= {user: user.firstname, resetlink}
-        const html = await ejs.renderFile(path.join(__dirname, "../../mails/reset-password.ejs"), data)
-        
-        try{
-            //send email
-            sendMail({
-                email: email,
-                subject: "Password Reset Link",
-                template: "reset-password.ejs",
-                data
-            });
-        }catch(error){
-            throw new Error("Something went wrong");
-        }
-
-        res.status(200).json({
+        return res.status(200).json({
             status: true,
             message: "Check your email for password reset link"
         })
-    }catch (error){
-        throw new Error(error)
+    }catch(error){
+        res.status(500).json({ status: false, message: "Failed to send email" });
     }
+
+   
 });
 
 module.exports = forgotPasswordToken;

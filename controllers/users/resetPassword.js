@@ -12,7 +12,7 @@ const resetPassword = asyncHandler(async (req, res)=>{
     if (!user){
         return res.status(404).json({
             status: false,
-            message:  "Invalid Token"
+            message:  "Invalid or Expired Token"
         });
     }
     if (user && (user.passwordResetExpires > Date.now())){
