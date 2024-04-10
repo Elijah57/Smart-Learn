@@ -20,7 +20,7 @@ const sendMail = asyncHandler (async (options)=>{
     const templatePath = path.join(__dirname, "../../mails", options.template)
 
     // render the email template with ejs
-    const html = await ejs.renderFile(templatePath, options.data);
+    const html = await ejs.renderFile(templatePath, options.emailData);
 
     const mailOptions = {
         from: process.env.SMTP_MAIL,
@@ -29,8 +29,8 @@ const sendMail = asyncHandler (async (options)=>{
         html: html
     }
 
-    await transporter.sendMail(mailOptions);
-    console.log("Message Sent: ", mailOptions.messageId);
+    const result = await transporter.sendMail(mailOptions);
+    console.log("Message Sent: ", result.messageId);
 });
 
 module.exports = sendMail;
