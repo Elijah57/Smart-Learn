@@ -15,7 +15,7 @@ const courseSchema = new mongoose.Schema({
         trim: true
     },
     tags: [{
-        type: String
+        type: String,
         trim: true
     }],
     imageUrl: {
