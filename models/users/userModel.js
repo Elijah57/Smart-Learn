@@ -15,13 +15,10 @@ var userSchema  = new mongoose.Schema({
         required: true,
         trim: true,
     },
-    user_image : {
-        public_id: String,
-        url: {
-            type: String,
-            default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPKf7bdPa_aOiwGzeNO4YY4YwvAya-Hy8vOUtOFkfi1SD3HDDhjCz7Ux6OqLKNiD3SIxM&usqp=CAU"
-        },
-
+    gender: {
+        type: String,
+        enum: ["male", "female"],
+        required: true
     },
     email : {
         type: String,
@@ -30,9 +27,44 @@ var userSchema  = new mongoose.Schema({
         index: true,
         trim: true
     },
-    mobile:{
-        type: String,
-        required: false
+profile:{
+        user_image : {
+            public_id: String,
+            url: {
+                type: String,
+                default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPKf7bdPa_aOiwGzeNO4YY4YwvAya-Hy8vOUtOFkfi1SD3HDDhjCz7Ux6OqLKNiD3SIxM&usqp=CAU"
+            }
+        },
+        dob: {
+            type: Date,
+        },
+        address: {
+            street: {
+                type: String,
+                trim: true,
+                maxLength:  60
+            },
+            city: { type: String, maxLength:  20},
+            state: {type: String, maxLength:  20},
+            zipCode: {type: String, maxLength:  20},
+            country: {type: String, maxLength:  20}
+        },
+        bio: {
+            type: String,
+            trim: true,
+            maxLength:  60
+        },
+        hobbies: [{
+            type: String,
+            trim: true
+        }],
+        mobile_no:{
+            type: String,
+            required: false
+        },
+        profession :{
+            type: String,
+        },
     },
     password:{
         type: String,
@@ -43,10 +75,6 @@ var userSchema  = new mongoose.Schema({
         type: String,
         enum: ["student", "instructor", "admin"],
         default: "student"
-    },
-    profession :{
-        type: String,
-        // required: true
     },
     isBlocked :{
         type: Boolean,
