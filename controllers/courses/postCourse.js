@@ -6,9 +6,10 @@ const slugify = require("slugify");
 const postCourse = asyncHandler(async (req, res)=>{
     const { title, description } = req.body;
     const { _id } = req.user;
+    // if course exist with the title
     const course = await Course.findOne({title: title});
     if(course){
-        return res.status(400).json({
+        return res.status(401).json({
             status: false,
             message: "Course with this Title already Exists."
         });
@@ -23,7 +24,7 @@ const postCourse = asyncHandler(async (req, res)=>{
             newCourse
         });
     }catch(error){
-        throw new Error(error);
+        return res.status(500).json({status: false, msg: "Internal Server Error"})
     }
 });
 

@@ -1,5 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Course = require("../../models/courses/courseModel");
+const validateMongodbId = require("../../configs/validateDB_id");
+
 
 
 
@@ -7,6 +9,7 @@ const Course = require("../../models/courses/courseModel");
 const updateCourse = asyncHandler(async (req, res)=>{
     const { title, description } = req.body;
     const { id } = req.params;
+    validateMongodbId(id);
 
     const course = await Course.findById(id);
     if(!course){
