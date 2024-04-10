@@ -16,12 +16,12 @@ var userSchema  = new mongoose.Schema({
         trim: true,
     },
     user_image : {
-        type: String,
-        default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPKf7bdPa_aOiwGzeNO4YY4YwvAya-Hy8vOUtOFkfi1SD3HDDhjCz7Ux6OqLKNiD3SIxM&usqp=CAU"
+        public_id: String,
+        url: {
+            type: String,
+            default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPKf7bdPa_aOiwGzeNO4YY4YwvAya-Hy8vOUtOFkfi1SD3HDDhjCz7Ux6OqLKNiD3SIxM&usqp=CAU"
+        },
 
-    },
-    image_pubId: {
-        type: String,
     },
     email : {
         type: String,
@@ -52,7 +52,7 @@ var userSchema  = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    isVerified: {
+    emailVerified: {
         type: Boolean,
         default: false
     },

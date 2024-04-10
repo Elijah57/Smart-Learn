@@ -19,4 +19,10 @@ const handleError = asyncHandler(async (err, req, res, next) =>{
     });
 });
 
+// class ErrorHandler extends Error {
+    
+
+    
+// }
+
 module.exports = {handleError, notFound};

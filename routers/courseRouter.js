@@ -1,6 +1,6 @@
 const express = require('express');
-const { postCourse, getAllCourse, deleteCourse, 
-    getCourse, registerCourse, updateCourse, myCourses } = require("../controllers/courses/index")
+const { postCourse, getAllCourse, deleteCourse, searchCourse,
+    courseDetail, registerCourse, updateCourse, myCourses } = require("../controllers/courses/index")
 const { isLoggedIn, isAdmin, isInstructor } = require('../middlewares/auth/index')
 const courseRouter = express.Router()
 
@@ -9,8 +9,9 @@ courseRouter.post("/new", isLoggedIn, isInstructor, postCourse);
 courseRouter.post("/:id/enroll", isLoggedIn, registerCourse)
 
 // get routes
-courseRouter.get("/all-courses", isLoggedIn, getAllCourse);
-courseRouter.get("/:id/detail", isLoggedIn, getCourse)
+courseRouter.get("/courses", isLoggedIn, getAllCourse);
+courseRouter.get("/courses/search?q=", isLoggedIn, searchCourse);
+courseRouter.get("/:id/detail", isLoggedIn, courseDetail)
 courseRouter.get("/my-courses", isLoggedIn, myCourses);
 
 // delete route

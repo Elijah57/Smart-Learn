@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-var courseSchema = new mongoose.Schema({
+
+const courseSchema = new mongoose.Schema({
     title:{
         required: true,
         unique: true,
@@ -13,6 +14,10 @@ var courseSchema = new mongoose.Schema({
         unique: true,
         trim: true
     },
+    tags: [{
+        type: String
+        trim: true
+    }],
     imageUrl: {
         type: String,
         default: "https://e7.pngegg.com/pngimages/797/100/png-clipart-course-training-class-professional-certification-education-courses-miscellaneous-angle.png",
