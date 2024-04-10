@@ -38,12 +38,12 @@ const updateUserProfileImage = asyncHandler(async (req, res)=>{
 
         purgeTempFiles(uploadedFilePath);
         // delete the previous image from cloud
-        const public_id = req.user.user_image.public_id;
+        const public_id = req.user.profile.user_image.public_id;
         cloudinary.uploader.destroy(public_id,()=>{ console.log("Updated")} );
         
         const user = await User.findById(_id);
-        user.user_image.url = result.secure_url; 
-        user.user_image.public_id = result.public_id;
+        user.profile.user_image.url = result.secure_url; 
+        user.profile.user_image.public_id = result.public_id;
         user.save();
         
         return res.status(200).json({
