@@ -11,7 +11,7 @@ userRouter.post("/forgot-password", forgotPasswordToken);
 
 // get routes
 userRouter.get("/verify-email/:token", verifyUser);
-userRouter.get("/request-verification", isLoggedIn, verificationLink)
+userRouter.get("/request-verification", isLoggedIn, verificationLink);
 userRouter.get("/profile-dashboard", isLoggedIn, getMyProfile);
 
 // put routes
@@ -20,5 +20,6 @@ userRouter.put("/upload-profile-image", isLoggedIn, updateProfileImage);
 userRouter.put("/update-password", isLoggedIn, updatePassword)
 userRouter.put("/reset-password/:token", resetPassword)
 
+// userRouter.delete("/delete/:id")
 
 module.exports = userRouter;
