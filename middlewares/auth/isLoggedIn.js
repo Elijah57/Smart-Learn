@@ -10,7 +10,11 @@ const isLoggedIn = asyncHandler(async (req, res, next)=>{
 
     try{
         const decode = jwt.verify(token, process.env.JWT_SECRET);
-        req.user._id = decode?.id
+        const user = await User.findById(decode?.id);
+        if (!user){
+            return res.status(401).json({error: "Invalid token"})
+        }
+        req.user = user;
         next();   
     }catch (error){
         res.status(401).json({error: "Invalid token"})

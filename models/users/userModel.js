@@ -27,7 +27,7 @@ var userSchema  = new mongoose.Schema({
         index: true,
         trim: true
     },
-profile:{
+    profile:{
         user_image : {
             public_id: String,
             url: {
@@ -65,12 +65,16 @@ profile:{
         profession :{
             type: String,
         },
+        locale: {
+            type: String,
+            enum: ['en', 'es', 'fr', 'de', 'zh', 'ja', 'ru', 'other'],
+            default: 'en' // Default language
+        }
     },
     password:{
         type: String,
         required: false
     },
-
     roles: {
         type: String,
         enum: ["student", "instructor", "admin"],

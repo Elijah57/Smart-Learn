@@ -29,8 +29,8 @@ const sendMail = asyncHandler (async (options)=>{
         html: html
     }
 
-    const result = await transporter.sendMail(mailOptions);
-    console.log("Message Sent: ", result.messageId);
+    await transporter.sendMail(mailOptions);
+    // console.log("Message Sent: ", result.messageId);
 });
 
 module.exports = sendMail;

@@ -11,7 +11,7 @@ const HOST = process.env.HOST || "http://localhost/4000";
 
 const registerUser = asyncHandler ( async (req, res)=>{
     
-    const { firstname, lastname, email, password, confirmPassword } = req.body;
+    const { firstname, lastname, email, gender, password, confirmPassword } = req.body;
 
     const isEmailValid = validateEmail(email)
     if (isEmailValid === null) {return res.status(400).json({status: false, msg: "Invalid email address"})}
@@ -19,7 +19,12 @@ const registerUser = asyncHandler ( async (req, res)=>{
     const validatedPassword = validatePassword(password, res);
     if(validatedPassword !== confirmPassword){ return res.status(400).json({status: false, message: "Password does not match"}) }
 
-    const userInput = {firstname, lastname, email, validatedPassword};
+    const userInput = {
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        gender: gender, 
+        password: validatedPassword};
 
     // check if email already exists
     const findUser = await User.findOne({email: email});
@@ -44,13 +49,13 @@ const registerUser = asyncHandler ( async (req, res)=>{
 
         return res.status(200).json({
             status:true,
-            message: "User Created Successfully, check email for verification mail",
+            message: "Thank you for registering! To complete the process check your email for a verification link",
             createdUser
         })
     }catch(error){
         console.error("Error sending activation email:", error);
         // await createdUser.remove(); // Rollback user creation
-        res.status(500).json({ status: false, message: "Failed to send activation email" });
+        return res.status(500).json({ status: false, message: "Failed to send activation email" });
     
     }
         
