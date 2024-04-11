@@ -44,6 +44,14 @@
                 "description": "The last name of the user"
               },
               {
+                "name": "gender",
+                "in": "formData",
+                "required": true,
+                "type": "string",
+                "enum": ["male", "female"],
+                "description": "The gender of the user. Must be either 'male' or 'female'."
+              },
+              {
                   "name": "email",
                   "in": "formData",
                   "required": true,
