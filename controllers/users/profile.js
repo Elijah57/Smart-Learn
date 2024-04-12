@@ -12,9 +12,10 @@ const getMyProfile = asyncHandler(async (req, res)=>{
             user: {
                 firstname: iuser?.firstname,
                 lastname: iuser?.lastname,
+                email: iuser?.email,
                 role: iuser?.roles,
                 profile: iuser?.profile,
-                isVerified: iuser?.emailVerified,
+                emailVerified: iuser?.emailVerified,
             }
         })
     }catch(error){
