@@ -6,7 +6,7 @@ require('dotenv').config();
 const isLoggedIn = asyncHandler(async (req, res, next)=>{
     const token = req?.header("authorization")?.split(" ")[1];
 
-    if (!token) return res.status(401).json({msg: "Access Denied"});
+    if (!token) return res.status(401).json({msg: "Unauthorized, proceed to login"});
 
     try{
         const decode = jwt.verify(token, process.env.JWT_SECRET);
@@ -21,7 +21,6 @@ const isLoggedIn = asyncHandler(async (req, res, next)=>{
     }
     
 });
-
 
 module.exports = isLoggedIn;
 
