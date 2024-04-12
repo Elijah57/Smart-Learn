@@ -4,7 +4,11 @@ const asyncHandler = require("express-async-handler")
 
 const notFound = asyncHandler(async (req, res, next) =>{
     const error = new Error(`Route Not Found: ${req.originalurl}`)
-    res.status(404);
+    res.status(404).json({
+        status: false,
+        message: process.env.ENV === "DEV"? error?.stack : "Route not Found",
+        stack: process.env.ENV === "DEV"? error?.stack : "",
+    });
     next(error);
 });
 
@@ -14,8 +18,8 @@ const handleError = asyncHandler(async (err, req, res, next) =>{
     res.status(errorCode);
     res.json({
         status: false,
-        message: err?.message,
-        stack: err?.stack,
+        message: process.env.ENV === "DEV"? err?.stack : "Route ",
+        stack: process.env.ENV === "DEV"? err?.stack : ""
     });
 });
 
