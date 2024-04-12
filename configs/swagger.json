@@ -129,6 +129,137 @@
           }
         }
       },
+      
+      "/api/auth/update-profile": {
+        "put": {
+          "tags": ["Authentication"],
+          "description": "Update user profile information",
+          "parameters": [
+            {
+              "name": "profile",
+              "in": "body",
+              "description": "User profile information to be updated",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstname": {
+                    "type": "string",
+                    "description": "User's first name"
+                  },
+                  "lastname": {
+                    "type": "string",
+                    "description": "User's last name"
+                  },
+                  "profile": {
+                    "type": "object",
+                    "properties": {
+                      "dob": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Date of birth in ISO 8601 format (YYYY-MM-DD)"
+                      },
+                      "address": {
+                        "type": "object",
+                        "properties": {
+                          "street": {
+                            "type": "string",
+                            "description": "Street address"
+                          },
+                          "city": {
+                            "type": "string",
+                            "description": "City"
+                          },
+                          "state": {
+                            "type": "string",
+                            "description": "State"
+                          },
+                          "zipCode": {
+                            "type": "string",
+                            "description": "Zip code"
+                          },
+                          "country": {
+                            "type": "string",
+                            "description": "Country"
+                          }
+                        },
+                        "description": "User address"
+                      },
+            "bio": {
+              "type": "string",
+              "description": "User biography"
+            },
+            "hobbies": {
+              "type": "array",
+              "items": {
+              "type": "string"
+              },
+              "description": "User hobbies"
+            },
+            "mobile_no": {
+              "type": "string",
+              "description": "User mobile number"
+            },
+            "profession": {
+              "type": "string",
+              "description": "User profession"
+            },
+            "locale": {
+                        "type": "string",
+                        "description": "User locale"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Profile updated successfully"
+            }
+          }
+        }
+      },
+      
+      "/api/auth/upload-profile-image": {
+        "put": {
+          "tags": ["Authentication"],
+          "description": "Update user profile image with a new image file",
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "parameters": [
+            {
+              "name": "image",
+              "in": "formData",
+              "description": "New user profile image",
+              "required": true,
+              "type": "file"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Profile image updated successfully"
+            },
+            "400": {
+              "description": "Bad request, select image file"
+            },
+            "401": {
+              "description": "Unauthorized, user authentication failed"
+            },
+            "422": {
+              "description": "upload failed, try again later"
+            },
+            "413": {
+              "description": "Uploaded file must not exceed 1MB!"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
       "/api/auth/forgot-password/": {
         "post": {
           "tags": ["Authentication"],
