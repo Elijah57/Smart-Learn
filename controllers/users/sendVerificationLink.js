@@ -20,17 +20,17 @@ const verificationLink = asyncHandler(async (req, res)=>{
     try{
         const userVerificationCode = await createdUser.createActivationToken();
         await createdUser.save()
-        const userActivationLink = `${HOST}/api/verify-email/${userVerificationCode}`
+        const userActivationLink = `${HOST}/api/auth/verify-email/${userVerificationCode}`
 
-        const data= {user: createdUser.firstname, userActivationLink}
-        const html = await ejs.renderFile(path.join(__dirname, "../../mails/activation-mail.ejs"), data)
+        const emailData= {user: createdUser.firstname, userActivationLink}
+        const html = await ejs.renderFile(path.join(__dirname, "../../mails/activation-mail.ejs"), emailData)
     
         try{
             await sendMail({
                 email: createdUser.email,
                 subject: "Activate Your Account",
                 template: "activation-mail.ejs",
-                data
+                emailData
             });
         }catch(error){
             throw new Error("Something went wrong!")
