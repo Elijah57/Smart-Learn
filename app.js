@@ -8,7 +8,7 @@ const passport = require("passport");
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const mongoSanitize = require('express-mongo-sanitize');
-
+const cookieParser = require("cookie-parser");
 const dbConnect = require('./configs/dbConnect');
 const { notFound, handleError } = require('./middlewares/error/errorHandler');
 const googleRouter = require('./routers/googleRouter');
@@ -31,6 +31,7 @@ const cloudinarySetup = require("./utils/cloudinary/cloudinarySetup")
 
 dbConnect();
 
+app.use(cookieParser())
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));

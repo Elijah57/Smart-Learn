@@ -11,8 +11,8 @@ const updateUser = asyncHandler(async (req, res)=>{
     validateMongodbId(_id); //validate id from config mongodb id validator
     try{
         const user = await User.findByIdAndUpdate(_id, {
-            firstname,
-            lastname,
+            firstname: firstname ? firstname: req.user.firstname,
+            lastname: lastname ? lastname: req.user.lastname,
             profile: {
                 dob: profile["dob"],
                 address: profile["address"],
