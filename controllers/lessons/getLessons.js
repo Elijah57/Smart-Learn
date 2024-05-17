@@ -1,4 +1,4 @@
-const CourseLesson = require("../../models/lessons/courseLessonModel");
+const CourseLesson = require("../../models/lessons/LessonModel");
 const Course = require("../../models/courses/courseModel")
 const asyncHandler = require("express-async-handler");
 const validateMongodbId = require("../../configs/validateDB_id");
