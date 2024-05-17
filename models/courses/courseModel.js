@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 
 const courseSchema = new mongoose.Schema({
-    title:{
+    name: {
         required: true,
         unique: true,
         type: String,
@@ -22,19 +22,19 @@ const courseSchema = new mongoose.Schema({
         type: String,
         default: "https://e7.pngegg.com/pngimages/797/100/png-clipart-course-training-class-professional-certification-education-courses-miscellaneous-angle.png",
     },
-    lessons:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "CourseLesson",
+    // lessons:[{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Module",
        
-    }],
-    instructors: [{
+    // }],
+    instructors_id: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     }],
-    students: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-    }],
+    // students: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "User",
+    // }],
    
 }, {timestamps: true});
 

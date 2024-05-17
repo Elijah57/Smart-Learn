@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
-var courseLessonSchema = new mongoose.Schema({
-    topic: {
+var LessonSchema = new mongoose.Schema({
+    module_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Module"
+    },
+    name: {
         type: String,
         require: true,
         unique: true,
@@ -15,13 +19,12 @@ var courseLessonSchema = new mongoose.Schema({
         type: String,
         default: "https://e7.pngegg.com/pngimages/797/100/png-clipart-course-training-class-professional-certification-education-courses-miscellaneous-angle.png"
     },
-    isComplete: {
-        type: Boolean,
-        default: false,
-},
+    position: {
+        type: Number,
+    },
 },
 {
     timestamps: true,
 });
 
-module.exports = mongoose.model("CourseLesson", courseLessonSchema);
+module.exports = mongoose.model("Lesson", LessonSchema);
