@@ -8,17 +8,17 @@ const searchCourse = asyncHandler(async (req, res)=>{
   
     const searchRegex = new RegExp(`^${query}|${query}`, 'i');
 
-    const courses = await Course.find({title: {$regex: searchRegex}});
-    if(!courses){
+    const courses = await Course.find({name: {$regex: searchRegex}});
+    console.log(courses)
+    if(courses.length === 0){
         return res.status(404).json({status: false, msg: "No result found"})
     }
-    const { students, instructors } = courses;
+    // const { students, instructors } = courses;
     res.status(200).json({
         status: true,
         message: "Course Fetched",
         courses,
-        students,
-        instructors
+     
     })
 
 });
