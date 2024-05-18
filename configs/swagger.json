@@ -432,13 +432,16 @@
           }
         }
       },
-      "/api/courses": {
+      "/api/courses/new": {
         "post": {
+          "consumes": [
+            "multipart/form-data"
+          ],
           "tags": ["Courses"],
           "description": "Creates a new course",
           "parameters": [
             {
-              "name": "title",
+              "name": "name",
               "in": "formData",
               "required": true,
               "type": "string",
@@ -450,6 +453,20 @@
               "required": true,
               "type": "string",
               "description": "The description of the course"
+            },
+            {
+              "name": "tags",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "The description of the course"
+            },
+            {
+              "name": "image",
+              "in": "formData",
+              "required": true,
+              "type": "file",
+              "description": "The image thumbnail of the course"
             }
           ],
           "responses": {
