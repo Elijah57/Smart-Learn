@@ -1,33 +1,43 @@
 const asyncHandler = require("express-async-handler");
 const Course = require("../../models/courses/courseModel");
 const slugify = require("slugify");
+const purgeTempFiles = require("../../utils/helpers/deleteTempFiles")
 
 // create new course controller
-const postCourse = asyncHandler(async (req, res)=>{
-    const { title, description } = req.body;
+const createCourse = asyncHandler(async (req, res)=>{
+
     const { _id } = req.user;
-    // if course exist with the title
-    const course = await Course.findOne({title: title});
+    const { name, description, tags } = req.body;
+    const { image_url } = req;
+
+
+    const course = await Course.findOne({name: name});
     if(course){
         return res.status(401).json({
             status: false,
-            message: "Course with this Title already Exists."
+            message: `Course with title "${name}" already Exists.`
         });
     }
-    try{
-        const newCourse = await Course.create({title, description});
-        newCourse.instructors.push(_id);
-        await newCourse.save();
-        res.status(200).json({
-            status: true,
-            message: "Course Created Successfully",
-            newCourse
-        });
-    }catch(error){
-        return res.status(500).json({status: false, msg: "Internal Server Error"})
+
+    const data = {
+        name: name,
+        description: description,
+        tags: tags,
+        image_url: image_url,
     }
+    
+    const newCourse = await Course.create(data);
+    newCourse.instructors_id.push(_id);
+    await newCourse.save();
+
+    return res.status(200).json({
+        status: true,
+        message: "Course Created Successfully",
+        newCourse
+    });
+
 });
 
 
 
-module.exports = postCourse;
+module.exports = createCourse;

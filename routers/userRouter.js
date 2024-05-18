@@ -1,11 +1,12 @@
 const express = require('express');
-const { registerUser, loginUser, updateUser, verificationLink,
+const { registerUser, loginUser, updateUser, verificationLink, registerInstructor,
     updatePassword, forgotPasswordToken, resetPassword, verifyUser, updateProfileImage, getMyProfile} = require('../controllers/users/index');
 const { isLoggedIn } = require('../middlewares/auth/index');
 const userRouter = express.Router()
 
 // post routes
 userRouter.post("/register", registerUser);
+userRouter.post("/register-instructor", registerInstructor);
 userRouter.post("/login", loginUser);
 userRouter.post("/forgot-password", forgotPasswordToken);
 
