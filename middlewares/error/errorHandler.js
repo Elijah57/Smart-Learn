@@ -9,7 +9,7 @@ const notFound = asyncHandler(async (req, res, next) =>{
         status: false,
         message: `Route Not Found: ${req.originalUrl}`,
     });
-    next(error);
+    next(error);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 });
 
 // Error Handler
