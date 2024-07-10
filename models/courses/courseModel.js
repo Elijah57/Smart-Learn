@@ -11,30 +11,27 @@ const courseSchema = new mongoose.Schema({
     description: {
         required: true,
         type: String,
-        unique: true,
         trim: true
     },
     tags: [{
         type: String,
         trim: true
     }],
-    imageUrl: {
+    image_url: {
         type: String,
         default: "https://e7.pngegg.com/pngimages/797/100/png-clipart-course-training-class-professional-certification-education-courses-miscellaneous-angle.png",
     },
-    // lessons:[{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Module",
-       
-    // }],
+    preview_video: {
+        type: String,
+        
+    }, 
+ 
     instructors_id: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-    }],
-    // students: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "User",
-    // }],
+    
+    }]
+    
    
 }, {timestamps: true});
 
